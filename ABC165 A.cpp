@@ -23,7 +23,7 @@ using namespace std;
 #define pb push_back
 int main()
 {
-    // git更新テスト
+    // git反映テスト
     int K;
     cin >> K;
     int A, B;
