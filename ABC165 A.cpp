@@ -48,6 +48,7 @@ ll gcd(ll x, ll y) { return y ? gcd(y, x % y) : x; }
 
 int main()
 {
+    // git更新テスト
     int K;
     cin >> K;
     int A, B;
