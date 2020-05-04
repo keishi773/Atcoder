@@ -27,14 +27,10 @@ int main()
     cin >> N;
     string s;
     cin >> s;
-    int length = s.length();
-    vector<char> A;
-    for (int i = 0; i < length; i++)
-    {
-        A[i] += s[i];
-    }
-    for (int i = 0; i < length; i++)
-    {
-        cout << A[i] << endl;
+    int size = s.length();
+    for(int i = 0; i < size; i++){
+        int code = s[i] - 'A';
+        code = (code + N) % 26;
+        cout << char('A' + code) << endl;
     }
 }
