@@ -23,6 +23,13 @@ using namespace std;
 #define pb push_back
 int main()
 {
-    int n;
-    cin >> n;
+   long long X;
+   cin >> X;
+   long long target = 100;
+   long long count = 0;
+   while(target < X){
+       target += target / 100;
+       count++;
+   }
+   cout << count << endl;
 }
