@@ -31,6 +31,7 @@ int main()
     for(int i = 0; i < size; i++){
         int code = s[i] - 'A';
         code = (code + N) % 26;
-        cout << char('A' + code) << endl;
+        s[i] = code + 'A';
     }
+    cout << s << endl;
 }
