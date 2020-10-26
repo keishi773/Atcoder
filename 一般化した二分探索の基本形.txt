@@ -1,0 +1,69 @@
+一般化した二分探索法
+
+C++ std::lower_bound()
+
+
+一般化した二分探索法
+
+各整数xについてtrue/falseの2値で判定される条件Pが与えられていて、ある整数l,r(/ < r)が存在して、
+以下が成立しているとする。
+
+・P(l) = false;
+・P(r) = true;
+・ある整数M(l < M <= r)が存在していて、x < Mなるxに対して
+p(x)=falseであり、x >= Mなるxに対してp(x) = trueである。
+
+このときD = r - l として、二分探索法は、MをO(log D)の計算量で求めることができるアルゴリズム。
+
+・left <- l
+
+・right <- r
+
+このときP(left)= false, P(right) = trueとする。
+right - left = 1となるまで範囲を狭めていく。
+具体的にはmid = (left + right) / 2としたときに
+P(mid) = trueならばright <- mid
+P(mid) = falsenならばleft <- mid
+と更新する。
+
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include<functional>
+#include<cassert>
+#include <list>
+#include <numeric>
+#include <set>
+#include <cmath>
+#include <limits>
+#include<iomanip>
+//十分に大きな値
+const long long INF = 1LL << 60;
+typedef long long ll;
+using namespace std;
+#define rep(i, c) for(int i = 0; i < (int)c; i++)
+
+// 一般化二分探索法の基本形
+// xが条件を満たすかどうか
+bool P(int x) {
+
+}
+
+// P(x) = trueとなる最小の整数xを返す
+int binary_search() {
+	// P(left) = false, P(right) = trueとなるように
+	int left, right; 
+
+	while (right - left > 1) {
+		int mid = left + (right - left) / 2;
+		if (P(mid)) right = mid;
+		else left = mid;
+	}
+	return right;
+}
+
+int main() {
+}
+ 
