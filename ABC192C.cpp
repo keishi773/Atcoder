@@ -44,35 +44,23 @@ bool isPalindrome(string s){
     return isp;
 }
 
+int todo(int N){
+    string S = to_string(N);
+    sort(all(S));
+
+    int a = stoi(S);
+
+    sort(all(S), greater<char>());
+
+    int b = stoi(S);
+
+    return b - a;
+}
+
 int main(int, char**) {
-    
-    int N;
-    cin >> N;
-    queue<int> a;
-    queue<int> winner;
-    rep(i,0,N*N){
-        int b;
-        cin >> b;
-        a.push(b);
-    } 
-    int ans = 0;
-    // N回戦わせる
-    for(int i = 0; i < a.size()/2; i++){
-        // 対戦者
-        int a1,a2;
-        a1 = a.front();
-        a.pop();
-        a2 = a.front();
-        a.pop();
-        
-        // 終わりがやってくる。
-        if(i == N){
-            ans = min(a1,a2);
-        }else{
-            // 対戦
-            int win = max(a1,a2);
-            winner.push(win);
-        }
-    }
+    int N, K;
+    cin >> N >> K;
+    int ans = N;
+    for(int i = 0; i < K; i++) ans = todo(ans);
     cout << ans << endl;
 }

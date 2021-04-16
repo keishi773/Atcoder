@@ -33,46 +33,24 @@ using namespace std;
 int dx[4] = {0,1,0,-1};
 int dy[4] = {-1,0,1,0};
 
-// 回文判定
-bool isPalindrome(string s){
-    string rs = s;
-    reverse(rs.begin(), rs.end());
-    bool isp = false;
-    if(rs == s){
-        isp = true;
-    }
-    return isp;
-}
-
 int main(int, char**) {
-    
-    int N;
-    cin >> N;
-    queue<int> a;
-    queue<int> winner;
-    rep(i,0,N*N){
-        int b;
-        cin >> b;
-        a.push(b);
-    } 
-    int ans = 0;
-    // N回戦わせる
-    for(int i = 0; i < a.size()/2; i++){
-        // 対戦者
-        int a1,a2;
-        a1 = a.front();
-        a.pop();
-        a2 = a.front();
-        a.pop();
-        
-        // 終わりがやってくる。
-        if(i == N){
-            ans = min(a1,a2);
-        }else{
-            // 対戦
-            int win = max(a1,a2);
-            winner.push(win);
+    int n;
+    cin >> n;
+    // 2のべき乗
+    int n2 = 1<<n;
+    vector<int> a(n2);
+    rep(i,0,n2) cin >> a[i];
+    map<int,int> mp;
+    rep(i,0,n2) mp[a[i]] = i+1;
+    // 配列のサイズが2になるまで戦う。
+    while(a.size() > 2){
+        vector<int> na;
+        // 2個ずつ見ていく。
+        for(int i = 0; i < a.size(); i+= 2){
+           na.push_back(max(a[i],a[i+1])); 
         }
+        swap(a,na);
     }
-    cout << ans << endl;
+    int ans = min(a[0],a[1]);
+    cout << mp[ans] << endl;
 }
