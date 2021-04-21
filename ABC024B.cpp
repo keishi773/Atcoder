@@ -55,25 +55,29 @@ int dy[4] = {-1, 0, 1, 0};
 
 int main(int, char **)
 {
-  int N;
-  cin >> N;
-  vector<string> S(N);
-  vector<int> Po(N);
-  rep(i, 0, N) cin >> S[i] >> Po[i];
-  // 人口の合計を計算する
-  int sum = 0;
-  rep(i, 0, N)
+  int N, T;
+  cin >> N >> T;
+  int z[100010];
+  rep(i, 0, N) cin >> z[i];
+  long long ans = 0;
+  //ｌは開き始めた時間　rはドアが閉じる時間
+  int l = z[0], r = z[0] + T;
+  for (int i = 1; i < N; ++i)
   {
-    sum += Po[i];
-  }
-  int kahan = sum / 2 + 1;
-  string mati = "atcoder";
-  rep(i, 0, N)
-  {
-    if (kahan <= Po[i])
+    if (r < z[i])
     {
-      mati = S[i];
+      //ドアがいったん締まり、また開く
+      ans += r - l;
+      l = z[i];
+      r = z[i] + T;
+    }
+    else
+    {
+      //ドアが開いたままで、さらに開く時間が延長
+      r = z[i] + T;
     }
   }
-  cout << mati << endl;
+  ans += r - l;
+  printf("%lld\n", ans);
+  return 0;
 }

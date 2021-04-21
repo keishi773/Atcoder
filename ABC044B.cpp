@@ -55,25 +55,22 @@ int dy[4] = {-1, 0, 1, 0};
 
 int main(int, char **)
 {
-  int N;
-  cin >> N;
-  vector<string> S(N);
-  vector<int> Po(N);
-  rep(i, 0, N) cin >> S[i] >> Po[i];
-  // 人口の合計を計算する
-  int sum = 0;
-  rep(i, 0, N)
+  string w;
+  cin >> w;
+  int si = w.length();
+  rep(i, 0, si)
   {
-    sum += Po[i];
-  }
-  int kahan = sum / 2 + 1;
-  string mati = "atcoder";
-  rep(i, 0, N)
-  {
-    if (kahan <= Po[i])
+    int cnt = 0;
+    rep(j, 0, si)
     {
-      mati = S[i];
+      if (w[i] == w[j])
+        cnt++;
+    }
+    if (cnt % 2 != 0)
+    {
+      cout << "No" << endl;
+      return 0;
     }
   }
-  cout << mati << endl;
+  cout << "Yes" << endl;
 }

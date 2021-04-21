@@ -1,3 +1,4 @@
+// #include <bits/stdc++.h>
 #include <iostream>      // cout, endl, cin
 #include <string>        // string, to_string, stoi
 #include <vector>        // vector
@@ -19,7 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <numeric>
-#define P pair<int, int>
 #define SIZE_OF_ARRAY(array) (sizeof(array) / sizeof(array[0]))
 #define rep(i, a, b) for (int i = a; i < b; i++)
 const long long INF = 1LL << 60;
@@ -53,27 +53,39 @@ using namespace std;
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {-1, 0, 1, 0};
 
+int WA[100010];
+bool AC[100100];
 int main(int, char **)
 {
-  int N;
-  cin >> N;
-  vector<string> S(N);
-  vector<int> Po(N);
-  rep(i, 0, N) cin >> S[i] >> Po[i];
-  // 人口の合計を計算する
-  int sum = 0;
-  rep(i, 0, N)
+  int N, M;
+  cin >> N >> M;
+  int wacnt = 0;
+  int accnt = 0;
+  for (int i = 1; i <= N; i++)
   {
-    sum += Po[i];
+    WA[i] = 0;
+    AC[i] = false;
   }
-  int kahan = sum / 2 + 1;
-  string mati = "atcoder";
-  rep(i, 0, N)
+  //問題の回数ループを回す。
+  while (M--)
   {
-    if (kahan <= Po[i])
+    int p;
+    string S;
+    cin >> p >> S;
+    if (AC[p])
     {
-      mati = S[i];
+      continue;
+    }
+    if (S == "AC")
+    {
+      AC[p] = true;
+      accnt++;
+      wacnt += WA[p];
+    }
+    else if (S == "WA")
+    {
+      WA[p]++;
     }
   }
-  cout << mati << endl;
+  cout << accnt << " " << wacnt << endl;
 }
