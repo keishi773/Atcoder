@@ -1,0 +1,66 @@
+// #include <bits/stdc++.h>
+#include <iostream>      // cout, endl, cin
+#include <string>        // string, to_string, stoi
+#include <vector>        // vector
+#include <algorithm>     // min, max, swap, sort, reverse, lower_bound, upper_bound
+#include <utility>       // pair, make_pair
+#include <tuple>         // tuple, make_tuple
+#include <cstdint>       // int64_t, int*_t
+#include <cstdio>        // printf
+#include <map>           // map
+#include <queue>         // queue, priority_queue
+#include <set>           // set
+#include <stack>         // stack
+#include <deque>         // deque
+#include <unordered_map> // unordered_map
+#include <unordered_set> // unordered_set
+#include <bitset>        // bitset
+#include <cmath>
+#include <limits>
+#include <stdio.h>
+#include <string.h>
+#include <numeric>
+#define SIZE_OF_ARRAY(array) (sizeof(array) / sizeof(array[0]))
+#define rep(i, a, b) for (int i = a; i < b; i++)
+const long long INF = 1LL << 60;
+typedef long long ll;
+template <class T>
+inline bool chmin(T &a, T b) { if (a > b) { a = b; return true; } return false; }
+template <class T> inline bool chmax(T &a, T b) { if (a < b) { a = b; return true; } return false; }
+#define all(x) (x).begin(), (x).end()
+
+using namespace std;
+
+// 上下左右の移動用配列
+// セットで上、右、下、左の順番
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {-1, 0, 1, 0};
+
+int main(int, char **){
+  int MAX = 101010;
+  vector<int> is_prime(MAX,1);
+  is_prime[0] = 0, is_prime[1] = 0;
+  for(int i = 2; i < MAX; i++){
+    if(!is_prime[i]) continue;
+    for(int j = i*2; j < MAX; j += i) is_prime[j] = 0;
+  }
+
+  vector<int> a(MAX,0);
+  for(int i = 0; i < MAX; i++){
+    if(i%2 == 0) continue;
+    if(is_prime[i] && is_prime[(i+1)/2]) a[i] = 1;
+  }
+
+  //累積和
+  vector<int> s(MAX+1,0);
+  for(int i = 0; i < MAX; i++) s[i+1] = s[i] + a[i];
+
+  //クエリ処理
+  int Q; cin >> Q;
+  for(int q = 0; q < Q; q++){
+    int l, r;
+    cin >> l >> r;
+    ++r;
+    cout << s[r] - s[l] << endl;
+  }
+}
