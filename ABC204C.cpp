@@ -74,17 +74,23 @@ void dfs(int x) {
 }
 
 int main() {
-	int N;
-	cin >> N;
-	vector<ll> a(N);
-	for (int i = 0; i < N; i++) {
-		cin >> a[i];
+	int N, M;
+	cin >> N >> M;
+	G.resize(N);
+	for (int i = 0; i < M; i++) {
+		int a, b;
+		cin >> a >> b;
+		G[a - 1].push_back(b - 1);
 	}
-	ll ans = 0;
+	int ans = 0;
 	for (int i = 0; i < N; i++) {
-		while (a[i] % 2 == 0) {
-			a[i] /= 2;
-			ans++;
+		// 国の数だけ初期化
+		for (int j = 0; j < N; j++) {
+			seen[j] = false;
+		}
+		dfs(i);
+		for (int j = 0; j < N; j++) {
+			if (seen[j]) ans++;
 		}
 	}
 	cout << ans << endl;

@@ -54,7 +54,6 @@ vector<long long> divisor(long long n) {
 const int dx[4] = { 1,0,-1,0 };
 const int dy[4] = { 0,1,0,-1 };
 
-// 国の数
 bool seen[2000];
 Graph G;
 
@@ -64,28 +63,19 @@ unsigned GetDigit(unsigned num) {
 	return to_string(num).length();
 }
 
-
-void dfs(int x) {
-	if (seen[x]) return;
-	seen[x] = true;
-	for (auto xx : G[x]) {
-		dfs(xx);
-	}
-}
-
 int main() {
-	int N;
-	cin >> N;
-	vector<ll> a(N);
-	for (int i = 0; i < N; i++) {
-		cin >> a[i];
-	}
-	ll ans = 0;
-	for (int i = 0; i < N; i++) {
-		while (a[i] % 2 == 0) {
-			a[i] /= 2;
-			ans++;
+	int X;
+	cin >> X;
+	int k = X / 100 * 5;
+	int a = X % 100;
+	for (int i = 0; i < 1e7; i++) {
+		if (0 <= k && k >= a) {
+			cout << 1 << endl;
+			return 0;
+		}else if (k < 0) {
+			break;
 		}
 	}
-	cout << ans << endl;
+	cout << 0 << endl;
+	return 0;
 }

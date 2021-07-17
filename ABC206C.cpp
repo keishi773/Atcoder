@@ -74,18 +74,21 @@ void dfs(int x) {
 }
 
 int main() {
-	int N;
-	cin >> N;
-	vector<ll> a(N);
-	for (int i = 0; i < N; i++) {
-		cin >> a[i];
+	ll n;
+	cin >> n;
+	vector<ll> A(n);
+	map<ll, ll> mp;
+	for (int i = 0; i < n; i++) {
+		cin >> A[i];
+		mp[A[i]]++;
 	}
-	ll ans = 0;
-	for (int i = 0; i < N; i++) {
-		while (a[i] % 2 == 0) {
-			a[i] /= 2;
-			ans++;
-		}
+	ll b = 0;
+	for (auto it : mp) {
+		ll num = it.second;
+		// Ai = Ajの数を調べる。
+		b += num * (num - 1) / 2;
 	}
+	// 全体の数からAi = Ajの数を減らす。
+	ll ans = n * (n - 1) / 2 - b;
 	cout << ans << endl;
 }

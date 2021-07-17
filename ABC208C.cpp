@@ -20,7 +20,8 @@ using namespace std;
 #define rep(i,n) for(int i = 0; i < (int)(n); i++)
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
-using pll = pair<long long, long long>;
+using Pint = pair<int, int>;
+using Pll = pair<ll, ll>;
 using Graph = vector<vector<int>>;
 
 
@@ -54,10 +55,6 @@ vector<long long> divisor(long long n) {
 const int dx[4] = { 1,0,-1,0 };
 const int dy[4] = { 0,1,0,-1 };
 
-// 国の数
-bool seen[2000];
-Graph G;
-
 // xの桁数を求める。
 
 unsigned GetDigit(unsigned num) {
@@ -65,27 +62,21 @@ unsigned GetDigit(unsigned num) {
 }
 
 
-void dfs(int x) {
-	if (seen[x]) return;
-	seen[x] = true;
-	for (auto xx : G[x]) {
-		dfs(xx);
-	}
-}
-
 int main() {
-	int N;
-	cin >> N;
+	ll N, K;
+	cin >> N >> K;
 	vector<ll> a(N);
 	for (int i = 0; i < N; i++) {
 		cin >> a[i];
 	}
-	ll ans = 0;
-	for (int i = 0; i < N; i++) {
-		while (a[i] % 2 == 0) {
-			a[i] /= 2;
-			ans++;
-		}
+	vector<ll> ans(N,K/N);
+	K %= N;
+	vector<Pint> p(N);
+	rep(i, N) p[i] = Pint(a[i], i);
+	sort(p.begin(),p.end());
+	rep(i, K) ans[p[i].second]++;
+	rep(i, N) {
+		cout << ans[i] << endl;
 	}
-	cout << ans << endl;
+	return 0;
 }
