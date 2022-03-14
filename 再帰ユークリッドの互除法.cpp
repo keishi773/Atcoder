@@ -23,6 +23,11 @@ int GCD(int m, int n) {
 	return GCD(n, m % n);
 }
 
+// 最小公倍数
+int LCD(int m, int n) {
+	return (m / GCD(m,n)) * n; 
+}
+
 
 int main() {
 	// 3が求められる。
