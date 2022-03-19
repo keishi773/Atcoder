@@ -77,37 +77,25 @@ vector<int> integerToVector(int bit, int N) {
 
 
 int main() {
-	string S;
-	cin >> S;
-	int N = S.length() - 1;
-	vector<int> A(N + 1);
-	for (int i = 0; i < N + 1; i++) {
-		A[i] = S[i] - '0';
+	int N, W;
+	cin >> N >> W;
+	vector<int> A(N);
+	for (int i = 0; i < N; i++) {
+		cin >> A[i];
 	}
-	for (int bit = 0; bit < (1 << N); bit++) {
-		ll ans = 0;
-		ans += A[0];
-		for (int i = 0; i < N; i++) {
-			if (bit & (1 << i)) {
-				ans += A[i + 1];
-			}
-			else {
-				ans -= A[i + 1];
-			}
+
+	bool isSum = false;
+	for (int bit; bit < (1 << N); bit++) {
+		vector<int> S = integerToVector(bit, N);
+
+		// 選んだ集合の総和
+		int sum = 0;
+		for (int i : S) {
+			sum += A[i];
 		}
-		if (ans == 7) {
-			cout << A[0];
-			for (int i = 0; i < N; i++) {
-				if (bit & (1 << i)) {
-					cout << "+";
-				}
-				else {
-					cout << "-";
-				}
-				cout << A[i + 1];
-			}
-			cout << "=7";
-			return 0;
-		}
+
+		if (sum == W) isSum = true;
 	}
+	if (isSum) cout << "Yes" << endl;
+	else cout << "No" << endl;
 }

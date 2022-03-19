@@ -84,30 +84,19 @@ int main() {
 	for (int i = 0; i < N + 1; i++) {
 		A[i] = S[i] - '0';
 	}
+	ll ans = 0;
 	for (int bit = 0; bit < (1 << N); bit++) {
-		ll ans = 0;
-		ans += A[0];
-		for (int i = 0; i < N; i++) {
-			if (bit & (1 << i)) {
-				ans += A[i + 1];
+		ll tmp = A[0];
+		for (int j = 0; j < N; j++) {
+			if (bit & (1 << j)) {
+				ans += tmp;
+				tmp = A[j + 1];
 			}
 			else {
-				ans -= A[i + 1];
+				tmp = tmp * 10 + A[j + 1];
 			}
 		}
-		if (ans == 7) {
-			cout << A[0];
-			for (int i = 0; i < N; i++) {
-				if (bit & (1 << i)) {
-					cout << "+";
-				}
-				else {
-					cout << "-";
-				}
-				cout << A[i + 1];
-			}
-			cout << "=7";
-			return 0;
-		}
+		ans += tmp;
 	}
+	cout << ans << endl;
 }
