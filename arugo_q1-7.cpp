@@ -61,57 +61,26 @@ bool hantei(string S) {
     return false;
 }
 
+// 区間スケジュール問題
 int main() {
-    
     int N;
     cin >> N;
-    vector<double> X(N), Y(N);
-    for (int i = 0; i < N; i++) cin >> X[i] >> Y[i];
+    vector<int> S(N), T(N);
+    for (int i = 0; i < N; i++) cin >> S[i] >> T[i];
+    //終了時刻Tが小さい順にidを並び替える
+    vector<int> ids(N);
+    for (int i = 0; i < N; i++) ids[i] = i;
+    sort(ids.begin(), ids.end(), [&](int i, int j) {
+        return T[i] < T[j];
+     });
 
-    //マンハッタン距離を求める
-    auto calc = [&](int i, int j) -> double {
-        // return sqrt(X[j] - X[i]) * (X[j] - X[i]) + (Y[j] - Y[i]) * (Y[j] - Y[i]);
-        return hypot(X[j] - X[i], Y[j] - Y[i]);
-    };
-
-
-    //答え
-    double res = 0.0;
-
-    //used[v] すでに訪れたかどうかをカウントする
-    vector<bool> used(N, false);
-    used[0] = true;
-
-    //前回の頂点
-    int prev = 0;
-
-    //毎回貪欲に頂点を選んでいく
-    for (int i = 0; i < N - 1; i++) {
-        // 残っている頂点で最も近い所を探す
-        int nex = -1;
-        double min_dis = 1000000;
-        for (int j = 0; j < N; j++) {
-            // 既に訪れた頂点はスキップ
-            if (used[j]) continue;
-            double dis = calc(prev, j);
-            if (min_dis > dis) {
-                min_dis = dis;
-                //一番距離が短い次の点をセットする
-                nex = j;
-            }
-        }
-        
-        //次の頂点を訪れる
-        used[nex] = true;
-        // 最小距離を足す
-        res += min_dis;
-
-        //前回の頂点を見つかった点で更新
-        prev = nex;
+    int ans = 0;
+    // 終了時刻
+    int last_time = 0;
+    for (auto i : ids) {
+        if (S[i] < last_time) continue;
+        ans++;
+        last_time = T[i];
     }
-    // 最後に頂点0へ戻る
-    // 最後の点から0までの距離を足す。
-    res += calc(prev, 0);
-    // 誤差10-4までで出す。
-    cout << fixed << setprecision(10) << res << endl;
+    cout << ans << endl;
 }
