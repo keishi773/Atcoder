@@ -24,59 +24,45 @@ using Pint = pair<int, int>;
 using Pll = pair<ll, ll>;
 using Graph = vector<vector<int>>;
 
+// knight配列
+vector<int> dx = {1, 2, 2, 1, -1, -2, -2, -1};
+vector<int> dy = {2, 1, -1, -2, -2, -1, 1, 2};
 
-//最大公約数を求める
-ll gcd(ll a, ll b) {
-	if (a % b == 0) {
-		return (b);
+vector<vector<int>> func(int n, int l, int r) {
+	if (l > r) return{};
+	if (n == 0) return { {} };
+	vector<vector<int>> ans;
+	// n-1の要素としてlを選んだ場合
+	for (auto x : func(n - 1, l, r)) {
+		vector<int> to = { l };
+		to.insert(to.end(), x.begin(), x.end());
+		ans.push_back(to);
 	}
-	else {
-		return(gcd(b, a % b));
+	// lを選ばない場合
+	for (auto x : func(n, l + 1, r)) {
+		ans.push_back(x);
 	}
+	return ans;
 }
-
-//最小公倍数を求める
-ll lcm(ll a, ll b) {
-	return a / gcd(a, b) * b;
-}
-
-// nの約数を求める
-vector<long long> divisor(long long n) {
-	vector<long long> ret;
-	for (long long i = 1; i <= n; i++) {
-		if (n % i == 0) {
-			ret.push_back(n / i);
-		}
-	}
-	return ret;
-}
-
-// 上下左右への移動配列
-const int dx[4] = { 1,0,-1,0 };
-const int dy[4] = { 0,1,0,-1 };
-
-// xの桁数を求める。
-
-unsigned GetDigit(unsigned num) {
-	return to_string(num).length();
-}
-
 
 int main() {
 	ll N, K;
 	cin >> N >> K;
-	vector<ll> a(N);
+	vector<ll> A(N);
 	for (int i = 0; i < N; i++) {
-		cin >> a[i];
+		cin >> A[i];
 	}
-	vector<ll> ans(N,K/N);
-	K %= N;
-	vector<Pint> p(N);
-	rep(i, N) p[i] = Pint(a[i], i);
-	sort(p.begin(),p.end());
-	rep(i, K) ans[p[i].second]++;
-	rep(i, N) {
+	//国民番号を昇順に
+	vector<ll> ids(N);
+	iota(ids.begin(), ids.end(), 0);
+	sort(ids.begin(), ids.end(), [&](int i, int j){
+		return A[i] < A[j];
+	});
+	vector<ll> ans(N, K / N);
+	for (int i = 0; i < K % N; i++) {
+		ans[ids[i]]++;
+	}
+	for (int i = 0; i < ans.size(); i++) {
 		cout << ans[i] << endl;
 	}
-	return 0;
 }
