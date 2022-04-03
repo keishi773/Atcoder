@@ -6,3 +6,5 @@
 /.vs/slnx.sqlite-journal
 /.vs/slnx.sqlite
 /.vs/ProjectSettings.json
+!ABC/*
+!ABC/
