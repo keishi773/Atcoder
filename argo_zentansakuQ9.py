@@ -1,25 +1,8 @@
-import sys
-# 正規表現
-import re
-import math
-import itertools
-# 配分二分法アルゴリズム
-from bisect import bisect_left, bisect_right
-# ヒープキューアルゴリズム/優先度キューアルゴリズム
-from heapq import heappop, heappush
-# deque
-from collections import deque
-# counter
-from collections import Counter
-# math gcd
-
-#N,V = map(int, input().split())
 N = int(input())
 A = list(map(int, input().split()))
+sei = [0]*110
+for i in range(N):
+    sei[A[i]] += 1
 
-minnum = A[0]
-for i in A:
-    if i < minnum:
-        minnum = i
-
-print(minnum)
+for i in range(1,10):
+    print(sei[i])
